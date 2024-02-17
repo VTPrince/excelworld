@@ -51,7 +51,14 @@ export function activate(context: vscode.ExtensionContext) {
 							if(excelData.hasOwnProperty(key)){
 								if (jsonData.hasOwnProperty(key) && jsonData[key] === excelData[key]) {
                                 } else {
-                                    vscode.window.showInformationMessage(`No match found for: ${key} - ${excelData[key]}`);
+                                    // vscode.window.showInformationMessage(`No match found for: ${key} - ${excelData[key]}`);
+									if (activeEditor) {
+										const text = activeEditor.document.getText();
+										const position = activeEditor.document.positionAt(text.lastIndexOf('}'));
+										const workspaceEdit = new vscode.WorkspaceEdit();
+										workspaceEdit.insert(activeEditor.document.uri, position, `,\n"${key}": "${excelData[key]}"`);
+										vscode.workspace.applyEdit(workspaceEdit);
+									}
                                 }
 							}
 						}
