@@ -15,7 +15,7 @@
     "commands": [
       {
         "command": "extension.readExcel",
-        "title": "Read Excel File"
+        "title": "Excel Value Checker"
       }
     ]
   },
